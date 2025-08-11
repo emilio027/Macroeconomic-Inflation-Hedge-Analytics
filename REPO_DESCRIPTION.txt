@@ -1,0 +1,1 @@
+Real-return analysis across inflation episodes with bootstrapped CIs and allocation sketches. Python, Pandas, CI.
