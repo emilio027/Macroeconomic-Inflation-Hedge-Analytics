@@ -24,12 +24,21 @@
             --color-gray-800: #424242;
             --color-gray-900: #212121;
             
-            /* Strategic Accent Colors */
-            --color-accent-primary: #FF3B30;
-            --color-accent-blue: #007AFF;
-            --color-accent-green: #34C759;
-            --color-accent-orange: #FF9500;
-            --color-accent-purple: #AF52DE;
+            /* Macroeconomic Pinterest Color System */
+            --color-accent-primary: #E60023;     /* Pinterest Red */
+            --color-accent-blue: #1565C0;       /* Economics Blue */
+            --color-accent-green: #2E7D32;      /* Growth Green */
+            --color-accent-orange: #EF6C00;     /* Inflation Orange */
+            --color-accent-purple: #7B1FA2;     /* Analytics Purple */
+            --color-accent-gold: #FF8F00;       /* Economic Gold */
+            
+            /* Macroeconomic Platform Gradients */
+            --gradient-pinterest: linear-gradient(135deg, #E60023 0%, #FF6B9D 100%);
+            --gradient-economic: linear-gradient(135deg, #1565C0 0%, #42A5F5 100%);
+            --gradient-growth: linear-gradient(135deg, #2E7D32 0%, #66BB6A 100%);
+            --gradient-inflation: linear-gradient(135deg, #EF6C00 0%, #FFA726 100%);
+            --gradient-card: linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%);
+            --gradient-analytics: linear-gradient(135deg, #7B1FA2 0%, #BA68C8 100%);
             
             /* Typography System */
             --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -153,11 +162,48 @@
             text-decoration: none;
             font-weight: var(--font-weight-medium);
             font-size: var(--text-sm);
-            transition: var(--transition-fast);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            padding: var(--spacing-3) var(--spacing-4);
+            border-radius: var(--radius-md);
+            position: relative;
         }
 
         .navbar-link:hover {
-            color: var(--color-black);
+            color: var(--color-accent-primary);
+            background: rgba(230, 0, 35, 0.05);
+        }
+
+        .navbar-link.active {
+            color: var(--color-white);
+            background: var(--gradient-pinterest);
+            box-shadow: 0 4px 15px rgba(230, 0, 35, 0.25);
+        }
+
+        .navbar-link.active::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--color-accent-primary);
+            border-radius: 50%;
+        }
+
+        /* Tab Content Sections */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Hero Section */
@@ -738,6 +784,96 @@
         </div>
     </section>
 
+    <!-- Forecasts Tab Content -->
+    <section id="forecasts" class="tab-content dashboard">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Economic Forecasts</h2>
+                <p class="dashboard-subtitle">Advanced macroeconomic forecasting models with 91% inflation prediction accuracy</p>
+            </div>
+            
+            <div class="viz-grid">
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <h3 class="viz-title">Inflation Forecasts</h3>
+                    </div>
+                    <div class="viz-content">
+                        <canvas id="inflation-forecast-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <h3 class="viz-title">GDP Growth Projections</h3>
+                    </div>
+                    <div class="viz-content">
+                        <canvas id="gdp-forecast-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Tab Content -->
+    <section id="portfolio" class="tab-content dashboard">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Portfolio Analytics</h2>
+                <p class="dashboard-subtitle">$100M+ portfolio optimization with superior risk-adjusted returns</p>
+            </div>
+            
+            <div class="viz-grid">
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <h3 class="viz-title">Asset Allocation</h3>
+                    </div>
+                    <div class="viz-content">
+                        <canvas id="portfolio-allocation-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <h3 class="viz-title">Risk-Return Profile</h3>
+                    </div>
+                    <div class="viz-content">
+                        <canvas id="risk-return-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regimes Tab Content -->
+    <section id="regimes" class="tab-content dashboard">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">Economic Regimes</h2>
+                <p class="dashboard-subtitle">Real-time economic regime detection and cycle analysis</p>
+            </div>
+            
+            <div class="viz-grid">
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <h3 class="viz-title">Current Regime Analysis</h3>
+                    </div>
+                    <div class="viz-content">
+                        <canvas id="regime-analysis-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <h3 class="viz-title">Regime Transition Probabilities</h3>
+                    </div>
+                    <div class="viz-content">
+                        <canvas id="regime-transitions-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Modal for Economic Detail -->
     <div id="economic-modal" class="modal">
         <div class="modal-content">
@@ -752,6 +888,56 @@
     </div>
 
     <script>
+        // Tab Navigation Functionality
+        function initializeTabNavigation() {
+            // Set dashboard as default active tab
+            document.querySelector('.navbar-link[href="#dashboard"]').classList.add('active');
+            document.getElementById('dashboard').classList.add('active');
+            
+            // Add click event listeners to navbar links
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and content
+                    document.querySelectorAll('.navbar-link').forEach(l => l.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    link.classList.add('active');
+                    
+                    // Show corresponding content
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetContent = document.getElementById(targetId);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                        
+                        // Initialize charts for the active tab
+                        setTimeout(() => {
+                            initializeTabCharts(targetId);
+                        }, 100);
+                    }
+                });
+            });
+        }
+
+        // Initialize charts for specific tabs
+        function initializeTabCharts(tabId) {
+            switch(tabId) {
+                case 'forecasts':
+                    initializeForecastCharts();
+                    break;
+                case 'portfolio':
+                    initializePortfolioCharts();
+                    break;
+                case 'regimes':
+                    initializeRegimeCharts();
+                    break;
+                default:
+                    initializeCharts();
+            }
+        }
+
         // Initialize Charts
         function initializeCharts() {
             // Inflation Forecasting Accuracy Chart
@@ -993,9 +1179,120 @@
             alert(`Generating forecast for:\nEconomy: ${economy}\nAsset Class: ${asset}\nTime Horizon: ${horizon}\n\nForecast will be available in dashboard within 3-5 minutes.`);
         }
 
+        // Additional Chart Functions for Tabs
+        function initializeForecastCharts() {
+            const inflationCtx = document.getElementById('inflation-forecast-chart');
+            const gdpCtx = document.getElementById('gdp-forecast-chart');
+            
+            if (inflationCtx) {
+                new Chart(inflationCtx.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['2024 Q1', '2024 Q2', '2024 Q3', '2024 Q4', '2025 Q1', '2025 Q2'],
+                        datasets: [{
+                            label: 'Inflation Forecast',
+                            data: [3.2, 2.8, 2.4, 2.1, 1.9, 2.0],
+                            borderColor: 'rgb(239, 108, 0)',
+                            backgroundColor: 'rgba(239, 108, 0, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { display: false } } }
+                });
+            }
+            
+            if (gdpCtx) {
+                new Chart(gdpCtx.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['2024 Q1', '2024 Q2', '2024 Q3', '2024 Q4', '2025 Q1', '2025 Q2'],
+                        datasets: [{
+                            label: 'GDP Growth %',
+                            data: [2.4, 2.6, 2.8, 2.5, 2.3, 2.4],
+                            backgroundColor: 'rgba(46, 125, 50, 0.8)'
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { display: false } } }
+                });
+            }
+        }
+
+        function initializePortfolioCharts() {
+            const allocationCtx = document.getElementById('portfolio-allocation-chart');
+            const riskReturnCtx = document.getElementById('risk-return-chart');
+            
+            if (allocationCtx) {
+                new Chart(allocationCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Real Estate', 'Commodities', 'TIPS', 'Stocks', 'Gold'],
+                        datasets: [{
+                            data: [25, 20, 20, 25, 10],
+                            backgroundColor: ['#E60023', '#1565C0', '#2E7D32', '#EF6C00', '#FF8F00']
+                        }]
+                    },
+                    options: { responsive: true }
+                });
+            }
+            
+            if (riskReturnCtx) {
+                new Chart(riskReturnCtx.getContext('2d'), {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: 'Asset Classes',
+                            data: [
+                                { x: 12, y: 24 }, { x: 18, y: 15 }, { x: 8, y: 12 }, { x: 15, y: 18 }, { x: 10, y: 8 }
+                            ],
+                            backgroundColor: 'rgba(123, 31, 162, 0.6)'
+                        }]
+                    },
+                    options: { responsive: true, scales: { x: { title: { display: true, text: 'Risk (%)' } }, y: { title: { display: true, text: 'Return (%)' } } } }
+                });
+            }
+        }
+
+        function initializeRegimeCharts() {
+            const regimeCtx = document.getElementById('regime-analysis-chart');
+            const transitionsCtx = document.getElementById('regime-transitions-chart');
+            
+            if (regimeCtx) {
+                new Chart(regimeCtx.getContext('2d'), {
+                    type: 'pie',
+                    data: {
+                        labels: ['Growth', 'Recession', 'Stagflation', 'Recovery'],
+                        datasets: [{
+                            data: [45, 15, 25, 15],
+                            backgroundColor: ['#2E7D32', '#E60023', '#EF6C00', '#1565C0']
+                        }]
+                    },
+                    options: { responsive: true }
+                });
+            }
+            
+            if (transitionsCtx) {
+                new Chart(transitionsCtx.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Growth Probability',
+                            data: [75, 72, 68, 65, 70, 73],
+                            borderColor: 'rgb(46, 125, 50)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: { responsive: true, plugins: { legend: { display: false } } }
+                });
+            }
+        }
+
         // Initialize on page load
         window.addEventListener('load', () => {
-            setTimeout(initializeCharts, 500);
+            setTimeout(() => {
+                initializeTabNavigation();
+                initializeCharts();
+            }, 500);
         });
 
         // Close modal when clicking outside

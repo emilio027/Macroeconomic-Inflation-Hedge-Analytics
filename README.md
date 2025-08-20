@@ -1,4 +1,4 @@
-# 📈 Macroeconomic Inflation Hedge Analytics
+# ▪ Macroeconomic Inflation Hedge Analytics
 
 <div align="center">
   <img src="https://img.shields.io/badge/Annual%20Returns-24%25-green?style=for-the-badge&logo=trending-up&logoColor=white" alt="Returns">
@@ -8,15 +8,15 @@
 </div>
 
 <div align="center">
-  <h3>🚀 AI-Powered Macroeconomic Intelligence</h3>
+  <h3>◆ AI-Powered Macroeconomic Intelligence</h3>
   <p><em>Professional-grade inflation hedging delivering superior risk-adjusted returns</em></p>
 </div>
 
 ---
 
-## 🎯 Executive Summary
+## ◉ Executive Summary
 
-**🏆 Business Impact**: Advanced macroeconomic intelligence platform delivering **24% annual returns** through inflation-hedged investment strategies, managing **$100M+** in assets with **91% accuracy** in inflation forecasting and systematic protection against economic volatility across global markets.
+**◇ Business Impact**: Advanced macroeconomic intelligence platform delivering **24% annual returns** through inflation-hedged investment strategies, managing **$100M+** in assets with **91% accuracy** in inflation forecasting and systematic protection against economic volatility across global markets.
 
 <div align="center">
   <table>
