@@ -58,7 +58,7 @@
 > **🚀 EXECUTIVE-READY INTERACTIVE DEMOS:**  
 > 
 > **Option 1 - Instant Preview** *(Recommended for C-Suite)*  
-> **[► LAUNCH LIVE DEMO](https://htmlpreview.github.io/?https://github.com/emilio027/Macroeconomic-Inflation-Hedge-Analytics/blob/master/interactive_demo.html)** ← *One-click access*
+> **[► LAUNCH LIVE DEMO](https://emilio027.github.io/Macroeconomic-Inflation-Hedge-Analytics/)** ← *One-click access*
 > 
 > **Option 2 - Direct Access** *(Technical Teams)*  
 > **[► DOWNLOAD & OPEN](https://github.com/emilio027/Macroeconomic-Inflation-Hedge-Analytics/blob/master/interactive_demo.html)** → *Right-click → Save → Open in browser*
@@ -74,7 +74,7 @@
   <table>
     <tr>
       <td align="center">
-        <a href="https://htmlpreview.github.io/?https://github.com/emilio027/Macroeconomic-Inflation-Hedge-Analytics/blob/master/interactive_demo.html">
+        <a href="https://emilio027.github.io/Macroeconomic-Inflation-Hedge-Analytics/">
           <img src="./images/macro_dashboard.gif" alt="Macro Demo" width="300"/>
           <br/><strong>📈 Live Economic Dashboard</strong>
         </a>
