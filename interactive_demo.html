@@ -3,569 +3,1007 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macroeconomic Inflation Hedge Analytics - Interactive Demo</title>
+    <title>Macroeconomic Inflation Hedge Analytics | Executive Intelligence Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
     <style>
-        * {
+        /* Design System Variables - Based on Pinterest Aesthetic */
+        :root {
+            /* Monochromatic Core Palette */
+            --color-black: #000000;
+            --color-white: #FFFFFF;
+            --color-gray-50: #FAFAFA;
+            --color-gray-100: #F5F5F5;
+            --color-gray-200: #EEEEEE;
+            --color-gray-300: #E0E0E0;
+            --color-gray-400: #BDBDBD;
+            --color-gray-500: #9E9E9E;
+            --color-gray-600: #757575;
+            --color-gray-700: #616161;
+            --color-gray-800: #424242;
+            --color-gray-900: #212121;
+            
+            /* Strategic Accent Colors */
+            --color-accent-primary: #FF3B30;
+            --color-accent-blue: #007AFF;
+            --color-accent-green: #34C759;
+            --color-accent-orange: #FF9500;
+            --color-accent-purple: #AF52DE;
+            
+            /* Typography System */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-weight-light: 300;
+            --font-weight-regular: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --font-weight-extrabold: 800;
+            --font-weight-black: 900;
+            
+            /* Typography Scale */
+            --text-xs: 0.75rem;      /* 12px */
+            --text-sm: 0.875rem;     /* 14px */
+            --text-base: 1rem;       /* 16px */
+            --text-lg: 1.125rem;     /* 18px */
+            --text-xl: 1.25rem;      /* 20px */
+            --text-2xl: 1.5rem;      /* 24px */
+            --text-3xl: 1.875rem;    /* 30px */
+            --text-4xl: 2.25rem;     /* 36px */
+            --text-5xl: 3rem;        /* 48px */
+            --text-6xl: 3.75rem;     /* 60px */
+            
+            /* Spacing System - 8pt Grid */
+            --spacing-1: 0.125rem;   /* 2px */
+            --spacing-2: 0.25rem;    /* 4px */
+            --spacing-3: 0.375rem;   /* 6px */
+            --spacing-4: 0.5rem;     /* 8px */
+            --spacing-5: 0.625rem;   /* 10px */
+            --spacing-6: 0.75rem;    /* 12px */
+            --spacing-8: 1rem;       /* 16px */
+            --spacing-10: 1.25rem;   /* 20px */
+            --spacing-12: 1.5rem;    /* 24px */
+            --spacing-16: 2rem;      /* 32px */
+            --spacing-20: 2.5rem;    /* 40px */
+            --spacing-24: 3rem;      /* 48px */
+            --spacing-32: 4rem;      /* 64px */
+            --spacing-40: 5rem;      /* 80px */
+            --spacing-48: 6rem;      /* 96px */
+            --spacing-64: 8rem;      /* 128px */
+            
+            /* Shadow System */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            
+            /* Border Radius */
+            --radius-sm: 0.125rem;    /* 2px */
+            --radius-md: 0.375rem;    /* 6px */
+            --radius-lg: 0.5rem;      /* 8px */
+            --radius-xl: 0.75rem;     /* 12px */
+            --radius-2xl: 1rem;       /* 16px */
+            
+            /* Transitions */
+            --transition-fast: 150ms ease-out;
+            --transition-base: 250ms ease-out;
+            --transition-slow: 350ms ease-out;
+        }
+
+        /* Reset and Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #134E5E 0%, #71B280 100%);
-            color: #333;
+            font-family: var(--font-primary);
+            font-weight: var(--font-weight-regular);
+            color: var(--color-gray-900);
+            background-color: var(--color-white);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .demo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .demo-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .demo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-
-        .demo-card h3 {
-            color: #134E5E;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-
-        .demo-card .icon {
-            font-size: 2em;
-            margin-right: 15px;
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .metric {
-            background: linear-gradient(135deg, #134E5E, #71B280);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .metric-value {
-            font-size: 2em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .metric-label {
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-
-        .interactive-section {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .chart-container {
-            width: 100%;
-            height: 300px;
-            background: linear-gradient(45deg, #f0f2f5, #e1e8ed);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chart-placeholder {
-            text-align: center;
-            color: #666;
-        }
-
-        .economic-chart {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #134E5E20, #71B28020);
-            border-radius: 10px;
-        }
-
-        .trend-line {
-            position: absolute;
-            height: 3px;
-            background: linear-gradient(to right, #134E5E, #71B280);
-            border-radius: 2px;
-            animation: drawLine 3s ease-out;
-        }
-
-        @keyframes drawLine {
-            from { width: 0; }
-            to { width: var(--line-width); }
-        }
-
-        .line1 { top: 20%; left: 10%; --line-width: 70%; animation-delay: 0s; }
-        .line2 { top: 40%; left: 15%; --line-width: 60%; animation-delay: 0.5s; }
-        .line3 { top: 60%; left: 20%; --line-width: 65%; animation-delay: 1s; }
-        .line4 { top: 80%; left: 10%; --line-width: 75%; animation-delay: 1.5s; }
-
-        .economic-indicator {
-            position: absolute;
-            background: #134E5E;
-            color: white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8em;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .indicator1 { top: 15%; right: 20%; }
-        .indicator2 { top: 35%; right: 40%; }
-        .indicator3 { top: 55%; right: 25%; }
-        .indicator4 { top: 75%; right: 35%; }
-
-        .feature-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .feature-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-        }
-
-        .feature-list li:last-child {
-            border-bottom: none;
-        }
-
-        .feature-icon {
-            margin-right: 15px;
-            font-size: 1.2em;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #134E5E, #71B280);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s ease;
-            margin: 10px 0;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(19, 78, 94, 0.4);
-        }
-
-        .modal {
-            display: none;
+        /* Navigation */
+        .navbar {
             position: fixed;
             top: 0;
             left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-gray-200);
+        }
+
+        .navbar-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: var(--spacing-4) var(--spacing-8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            font-size: var(--text-xl);
+            font-weight: var(--font-weight-black);
+            color: var(--color-black);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-8);
+        }
+
+        .navbar-link {
+            color: var(--color-gray-600);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+            font-size: var(--text-sm);
+            transition: var(--transition-fast);
+        }
+
+        .navbar-link:hover {
+            color: var(--color-black);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: var(--spacing-24);
+            padding-bottom: var(--spacing-32);
+            background: var(--color-white);
+        }
+
+        .hero-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-8);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: var(--text-6xl);
+            font-weight: var(--font-weight-black);
+            color: var(--color-black);
+            letter-spacing: -0.04em;
+            margin-bottom: var(--spacing-6);
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: var(--text-xl);
+            font-weight: var(--font-weight-regular);
+            color: var(--color-gray-600);
+            margin-bottom: var(--spacing-12);
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-8);
+            margin-top: var(--spacing-16);
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: var(--spacing-8);
+        }
+
+        .metric-value {
+            display: block;
+            font-size: var(--text-4xl);
+            font-weight: var(--font-weight-black);
+            color: var(--color-black);
+            letter-spacing: -0.02em;
+        }
+
+        .metric-label {
+            font-size: var(--text-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: var(--spacing-2);
+        }
+
+        /* Dashboard Container */
+        .dashboard {
+            padding: var(--spacing-32) 0;
+            background: var(--color-gray-50);
+        }
+
+        .dashboard-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-8);
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: var(--spacing-20);
+        }
+
+        .dashboard-title {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-weight-black);
+            color: var(--color-black);
+            letter-spacing: -0.02em;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .dashboard-subtitle {
+            font-size: var(--text-lg);
+            color: var(--color-gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-8);
+            margin-bottom: var(--spacing-12);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--spacing-6);
+            align-items: end;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-2);
+        }
+
+        .control-label {
+            font-size: var(--text-xs);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-gray-700);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .control-select,
+        .control-input {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-300);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-3) var(--spacing-4);
+            font-size: var(--text-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-gray-900);
+            transition: var(--transition-fast);
+        }
+
+        .control-select:focus,
+        .control-input:focus {
+            outline: none;
+            border-color: var(--color-accent-primary);
+            box-shadow: 0 0 0 3px rgba(255, 59, 48, 0.1);
+        }
+
+        .control-button {
+            background: var(--color-black);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: var(--spacing-3) var(--spacing-6);
+            font-size: var(--text-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-white);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .control-button:hover {
+            background: var(--color-gray-800);
+            transform: translateY(-1px);
+        }
+
+        /* Visualization Grid */
+        .viz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: var(--spacing-8);
+            margin-bottom: var(--spacing-16);
+        }
+
+        .viz-card {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-base);
+        }
+
+        .viz-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .viz-header {
+            padding: var(--spacing-6) var(--spacing-8);
+            border-bottom: 1px solid var(--color-gray-200);
+            background: var(--color-white);
+        }
+
+        .viz-title {
+            font-size: var(--text-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin: 0;
+        }
+
+        .viz-content {
+            padding: var(--spacing-8);
+            height: 400px;
+            position: relative;
+        }
+
+        /* Data Table */
+        .data-table-container {
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            background: var(--color-gray-50);
+            border-bottom: 1px solid var(--color-gray-200);
+            padding: var(--spacing-4) var(--spacing-6);
+            text-align: left;
+            font-size: var(--text-xs);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-gray-700);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .data-table td {
+            padding: var(--spacing-4) var(--spacing-6);
+            border-bottom: 1px solid var(--color-gray-100);
+            font-size: var(--text-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-gray-900);
+        }
+
+        .data-table tr:hover {
+            background: var(--color-gray-50);
+            cursor: pointer;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Status Indicators */
+        .status-positive {
+            color: var(--color-accent-green);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .status-negative {
+            color: var(--color-accent-primary);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .status-neutral {
+            color: var(--color-accent-orange);
+            font-weight: var(--font-weight-bold);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
         }
 
         .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
+            background: var(--color-white);
+            margin: 5% auto;
+            border-radius: var(--radius-2xl);
+            width: 90%;
             max-width: 800px;
             max-height: 80vh;
             overflow-y: auto;
+            box-shadow: var(--shadow-xl);
         }
 
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 2em;
+        .modal-header {
+            padding: var(--spacing-8);
+            border-bottom: 1px solid var(--color-gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-black);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: var(--text-2xl);
+            color: var(--color-gray-500);
             cursor: pointer;
-            color: #999;
+            padding: var(--spacing-2);
+            transition: var(--transition-fast);
         }
 
-        .close:hover {
-            color: #333;
+        .modal-close:hover {
+            color: var(--color-black);
         }
 
-        .inflation-forecast {
-            background: linear-gradient(45deg, #134E5E10, #71B28010);
-            border-radius: 10px;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid #134E5E;
+        .modal-body {
+            padding: var(--spacing-8);
         }
 
-        .economic-score {
+        /* Loading Animation */
+        .loading {
             display: inline-block;
-            background: linear-gradient(135deg, #134E5E, #71B280);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            margin: 5px;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--color-gray-300);
+            border-radius: 50%;
+            border-top-color: var(--color-black);
+            animation: spin 0.8s linear infinite;
         }
 
-        .regime-analysis {
-            background: linear-gradient(45deg, #134E5E20, #71B28020);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 15px 0;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
-        .asset-allocation {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid #134E5E;
-        }
-
-        @media (max-width: 768px) {
-            .demo-grid {
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .viz-grid {
                 grid-template-columns: 1fr;
             }
             
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            .metrics-grid {
+            .hero-metrics {
                 grid-template-columns: repeat(2, 1fr);
             }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: var(--text-4xl);
+            }
+            
+            .hero-metrics {
+                grid-template-columns: 1fr;
+            }
+            
+            .control-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar-menu {
+                display: none;
+            }
+        }
+
+        /* Chart.js Customizations */
+        .chart-container {
+            position: relative;
+            height: 100%;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📈 Macroeconomic Intelligence</h1>
-            <p>Interactive Platform Demonstration</p>
-        </div>
-
-        <div class="demo-grid">
-            <div class="demo-card" onclick="openModal('inflationModal')">
-                <h3><span class="icon">🎯</span>Inflation Forecasting Engine</h3>
-                <p>Multi-factor inflation prediction models with 91% accuracy in 12-month forecasts across global economies.</p>
-                <div class="metrics-grid">
-                    <div class="metric">
-                        <div class="metric-value">91%</div>
-                        <div class="metric-label">Forecast Accuracy</div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-value">25+</div>
-                        <div class="metric-label">Global Economies</div>
-                    </div>
-                </div>
-                <button class="btn">Forecast Inflation</button>
-            </div>
-
-            <div class="demo-card" onclick="openModal('portfolioModal')">
-                <h3><span class="icon">💰</span>Portfolio Optimization</h3>
-                <p>Dynamic inflation-hedge portfolio construction with 24% annual returns and 73% volatility reduction.</p>
-                <div class="chart-container">
-                    <div class="economic-chart">
-                        <div class="trend-line line1"></div>
-                        <div class="trend-line line2"></div>
-                        <div class="trend-line line3"></div>
-                        <div class="trend-line line4"></div>
-                        <div class="economic-indicator indicator1">💹</div>
-                        <div class="economic-indicator indicator2">📊</div>
-                        <div class="economic-indicator indicator3">🏛️</div>
-                        <div class="economic-indicator indicator4">🌍</div>
-                    </div>
-                    <div class="chart-placeholder">Economic Trend Analysis</div>
-                </div>
-                <button class="btn">Optimize Portfolio</button>
-            </div>
-
-            <div class="demo-card" onclick="openModal('regimeModal')">
-                <h3><span class="icon">🌍</span>Economic Regime Detection</h3>
-                <p>Business cycle identification with 94% accuracy and recession probability modeling across markets.</p>
-                <div class="regime-analysis">
-                    <strong>Current Regime Analysis:</strong><br>
-                    <span class="economic-score">Growth Phase: Moderate</span>
-                    <span class="economic-score">Inflation Risk: Low</span>
-                </div>
-                <button class="btn">Analyze Economic Regimes</button>
-            </div>
-
-            <div class="demo-card" onclick="openModal('commodityModal')">
-                <h3><span class="icon">🥇</span>Commodity & Real Assets</h3>
-                <p>Commodity super-cycle analysis and real asset allocation optimization during inflationary periods.</p>
-                <div class="metrics-grid">
-                    <div class="metric">
-                        <div class="metric-value">$100M</div>
-                        <div class="metric-label">Assets Under Management</div>
-                    </div>
-                    <div class="metric">
-                        <div class="metric-value">380%</div>
-                        <div class="metric-label">Technology ROI</div>
-                    </div>
-                </div>
-                <button class="btn">Analyze Commodities</button>
-            </div>
-        </div>
-
-        <div class="interactive-section">
-            <h2>🚀 Key Performance Indicators</h2>
-            <div class="metrics-grid">
-                <div class="metric">
-                    <div class="metric-value">24%</div>
-                    <div class="metric-label">Annual Returns</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">17.8%</div>
-                    <div class="metric-label">Real Returns</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">1.28</div>
-                    <div class="metric-label">Sharpe Ratio</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">$18M</div>
-                    <div class="metric-label">Annual Savings</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Inflation Forecasting Modal -->
-    <div id="inflationModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>🎯 Inflation Forecasting Engine</h2>
-            <p><strong>Predictive Intelligence:</strong> 91% accuracy in 12-month CPI forecasts with advanced multi-factor models.</p>
-            
-            <h3>Forecasting Capabilities:</h3>
-            <ul class="feature-list">
-                <li><span class="feature-icon">📊</span><strong>CPI Forecasts:</strong> 91% accuracy within 0.5% margin</li>
-                <li><span class="feature-icon">🎯</span><strong>Core Inflation:</strong> 89% accuracy within 0.3% margin</li>
-                <li><span class="feature-icon">🌍</span><strong>Regional Analysis:</strong> 87% accuracy across major economies</li>
-                <li><span class="feature-icon">🏭</span><strong>Sectoral Inflation:</strong> 84% accuracy for commodity vs service</li>
-                <li><span class="feature-icon">🏛️</span><strong>Policy Predictions:</strong> 92% accuracy for central bank decisions</li>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">MACRO INTELLIGENCE</a>
+            <ul class="navbar-menu">
+                <li><a href="#dashboard" class="navbar-link">DASHBOARD</a></li>
+                <li><a href="#forecasts" class="navbar-link">FORECASTS</a></li>
+                <li><a href="#portfolio" class="navbar-link">PORTFOLIO</a></li>
+                <li><a href="#regimes" class="navbar-link">REGIMES</a></li>
             </ul>
-
-            <div class="inflation-forecast">
-                <strong>Current Inflation Forecasts:</strong><br>
-                <span class="economic-score">US CPI (12m): 2.8%</span>
-                <span class="economic-score">EU HICP (12m): 2.1%</span><br>
-                <span class="economic-score">UK CPI (12m): 3.2%</span>
-                <span class="economic-score">Japan CPI (12m): 1.4%</span><br>
-                Central Bank Policy: Fed likely to cut rates 0.25% in Q2
-            </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- Portfolio Optimization Modal -->
-    <div id="portfolioModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>💰 Portfolio Optimization</h2>
-            <p><strong>Inflation-Hedge Strategies:</strong> 24% annual returns with 73% volatility reduction during inflationary periods.</p>
-            
-            <h3>Optimization Features:</h3>
-            <ul class="feature-list">
-                <li><span class="feature-icon">🔄</span><strong>Dynamic Allocation:</strong> Real-time rebalancing based on economic regimes</li>
-                <li><span class="feature-icon">📈</span><strong>TIPS & Commodities:</strong> Optimal allocation to inflation-sensitive assets</li>
-                <li><span class="feature-icon">💱</span><strong>Currency Hedging:</strong> FX protection strategies for global portfolios</li>
-                <li><span class="feature-icon">🏗️</span><strong>Alternative Assets:</strong> Infrastructure, land, and energy investments</li>
-                <li><span class="feature-icon">⚖️</span><strong>Risk Management:</strong> Tail risk protection and drawdown minimization</li>
-            </ul>
-
-            <div class="asset-allocation">
-                <strong>Sample Allocation During High Inflation:</strong><br>
-                TIPS: 25% | Commodities: 20% | Real Estate: 15%<br>
-                Value Equities: 20% | Infrastructure: 10% | Cash: 10%<br>
-                Expected Real Return: 18.5% | Risk (Vol): 14.2%
-            </div>
-
-            <div class="metrics-grid">
-                <div class="metric">
-                    <div class="metric-value">24.7%</div>
-                    <div class="metric-label">High Inflation Returns</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">12.3%</div>
-                    <div class="metric-label">Max Drawdown</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">89%</div>
-                    <div class="metric-label">Hedge Ratio</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">6.2mo</div>
-                    <div class="metric-label">Recovery Time</div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">MACROECONOMIC INFLATION HEDGE ANALYTICS</h1>
+                <p class="hero-subtitle">Advanced inflation forecasting and portfolio optimization platform managing $100M+ with superior risk-adjusted returns across global economic cycles</p>
+                
+                <div class="hero-metrics">
+                    <div class="metric-item">
+                        <span class="metric-value">24%</span>
+                        <span class="metric-label">Annual Returns</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">91%</span>
+                        <span class="metric-label">Inflation Accuracy</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">$100M+</span>
+                        <span class="metric-label">Assets Under Management</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">73%</span>
+                        <span class="metric-label">Volatility Reduction</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Economic Regime Detection Modal -->
-    <div id="regimeModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>🌍 Economic Regime Detection</h2>
-            <p><strong>Cycle Intelligence:</strong> 94% accuracy in business cycle identification with advanced regime switching models.</p>
-            
-            <h3>Regime Analysis:</h3>
-            <ul class="feature-list">
-                <li><span class="feature-icon">📈</span><strong>Business Cycles:</strong> 94% accuracy in phase identification</li>
-                <li><span class="feature-icon">⚠️</span><strong>Recession Probability:</strong> Early warning systems and forecasts</li>
-                <li><span class="feature-icon">⚖️</span><strong>Growth vs Inflation:</strong> Regime classification algorithms</li>
-                <li><span class="feature-icon">🏛️</span><strong>Policy Analysis:</strong> Monetary and fiscal stance evaluation</li>
-                <li><span class="feature-icon">🔄</span><strong>Regime Switching:</strong> Transition probability modeling</li>
-            </ul>
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="dashboard">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h2 class="dashboard-title">EXECUTIVE DASHBOARD</h2>
+                <p class="dashboard-subtitle">Real-time macroeconomic intelligence with inflation forecasting and portfolio optimization across global economic cycles</p>
+            </div>
 
-            <div class="regime-analysis">
-                <strong>Current Economic Regime Assessment:</strong><br>
-                Business Cycle: Late Expansion (Probability: 78%)<br>
-                Growth Environment: Moderate (2.5-3.5% GDP growth)<br>
-                Inflation Regime: Transitional (Moving from low to moderate)<br>
-                Policy Stance: Neutral to slightly restrictive<br>
-                Recession Probability (12m): 15%
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <div class="control-grid">
+                    <div class="control-group">
+                        <label class="control-label">Economic Focus</label>
+                        <select id="economy-select" class="control-select">
+                            <option value="global">Global Economies</option>
+                            <option value="us">United States</option>
+                            <option value="europe">European Union</option>
+                            <option value="uk">United Kingdom</option>
+                            <option value="emerging">Emerging Markets</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Asset Class</label>
+                        <select id="asset-select" class="control-select">
+                            <option value="all">All Assets</option>
+                            <option value="tips">TIPS & Bonds</option>
+                            <option value="commodities">Commodities</option>
+                            <option value="real-estate">Real Estate</option>
+                            <option value="equities">Equities</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Time Horizon</label>
+                        <select id="horizon-select" class="control-select">
+                            <option value="12m">12 Months</option>
+                            <option value="24m">24 Months</option>
+                            <option value="36m">36 Months</option>
+                            <option value="5y">5 Years</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Analysis</label>
+                        <button class="control-button" onclick="generateForecast()">Generate Forecast</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualization Grid -->
+            <div class="viz-grid">
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <h3 class="viz-title">Inflation Forecasting Accuracy</h3>
+                    </div>
+                    <div class="viz-content">
+                        <canvas id="forecast-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <h3 class="viz-title">Portfolio Performance vs Inflation</h3>
+                    </div>
+                    <div class="viz-content">
+                        <canvas id="performance-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <h3 class="viz-title">Economic Regime Analysis</h3>
+                    </div>
+                    <div class="viz-content">
+                        <canvas id="regime-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="viz-card">
+                    <div class="viz-header">
+                        <h3 class="viz-title">Asset Allocation Optimization</h3>
+                    </div>
+                    <div class="viz-content">
+                        <canvas id="allocation-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Economy</th>
+                            <th>Current Inflation</th>
+                            <th>12M Forecast</th>
+                            <th>Portfolio Allocation</th>
+                            <th>Expected Return</th>
+                            <th>Risk Level</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody id="macro-table-body">
+                        <tr onclick="showEconomicDetail('us')">
+                            <td><strong>United States</strong></td>
+                            <td>3.2%</td>
+                            <td class="status-neutral">2.8%</td>
+                            <td>35% TIPS, 25% Commodities, 40% Equities</td>
+                            <td class="status-positive">18.5%</td>
+                            <td class="status-positive">Moderate</td>
+                            <td class="status-positive">94%</td>
+                        </tr>
+                        <tr onclick="showEconomicDetail('eu')">
+                            <td><strong>European Union</strong></td>
+                            <td>2.4%</td>
+                            <td class="status-positive">2.1%</td>
+                            <td>40% Bonds, 30% Real Estate, 30% Equities</td>
+                            <td class="status-positive">16.2%</td>
+                            <td class="status-positive">Low</td>
+                            <td class="status-positive">89%</td>
+                        </tr>
+                        <tr onclick="showEconomicDetail('uk')">
+                            <td><strong>United Kingdom</strong></td>
+                            <td>4.1%</td>
+                            <td class="status-neutral">3.2%</td>
+                            <td>30% TIPS, 35% Commodities, 35% Equities</td>
+                            <td class="status-positive">19.8%</td>
+                            <td class="status-neutral">Moderate-High</td>
+                            <td class="status-positive">87%</td>
+                        </tr>
+                        <tr onclick="showEconomicDetail('japan')">
+                            <td><strong>Japan</strong></td>
+                            <td>0.8%</td>
+                            <td class="status-positive">1.4%</td>
+                            <td>50% Bonds, 20% Real Estate, 30% Equities</td>
+                            <td class="status-positive">12.3%</td>
+                            <td class="status-positive">Low</td>
+                            <td class="status-positive">92%</td>
+                        </tr>
+                        <tr onclick="showEconomicDetail('emerging')">
+                            <td><strong>Emerging Markets</strong></td>
+                            <td>6.8%</td>
+                            <td class="status-negative">5.2%</td>
+                            <td>25% TIPS, 45% Commodities, 30% Local Equities</td>
+                            <td class="status-positive">26.4%</td>
+                            <td class="status-negative">High</td>
+                            <td class="status-positive">78%</td>
+                        </tr>
+                        <tr onclick="showEconomicDetail('china')">
+                            <td><strong>China</strong></td>
+                            <td>1.9%</td>
+                            <td class="status-positive">2.3%</td>
+                            <td>35% Bonds, 25% Real Estate, 40% Equities</td>
+                            <td class="status-positive">21.7%</td>
+                            <td class="status-neutral">Moderate</td>
+                            <td class="status-positive">85%</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Commodity & Real Assets Modal -->
-    <div id="commodityModal" class="modal">
+    <!-- Modal for Economic Detail -->
+    <div id="economic-modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>🥇 Commodity & Real Assets</h2>
-            <p><strong>Real Asset Intelligence:</strong> Commodity super-cycle analysis and precious metals optimization during inflation.</p>
-            
-            <h3>Asset Analysis:</h3>
-            <ul class="feature-list">
-                <li><span class="feature-icon">📊</span><strong>Super-Cycle Analysis:</strong> Long-term commodity trend identification</li>
-                <li><span class="feature-icon">⛽</span><strong>Energy Forecasting:</strong> Oil, gas, and renewable energy prices</li>
-                <li><span class="feature-icon">🌾</span><strong>Agricultural Commodities:</strong> Price drivers and seasonality analysis</li>
-                <li><span class="feature-icon">🥇</span><strong>Precious Metals:</strong> Gold, silver allocation during inflation</li>
-                <li><span class="feature-icon">🏢</span><strong>Real Estate:</strong> Geographic and timing optimization</li>
-            </ul>
-
-            <div class="asset-allocation">
-                <strong>Real Asset Performance During Inflation:</strong><br>
-                Gold: +18.5% (High inflation periods)<br>
-                Oil: +22.3% (Supply shock scenarios)<br>
-                Real Estate: +14.7% (Rental income + appreciation)<br>
-                Infrastructure: +16.2% (Inflation-linked revenues)<br>
-                Agricultural Land: +12.8% (Food price inflation)
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Economic Analysis</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Content will be populated by JavaScript -->
             </div>
         </div>
     </div>
 
     <script>
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = 'block';
-        }
-
-        // Close modals when clicking the close button or outside the modal
-        document.addEventListener('click', function(event) {
-            if (event.target.classList.contains('modal') || event.target.classList.contains('close')) {
-                const modals = document.querySelectorAll('.modal');
-                modals.forEach(modal => modal.style.display = 'none');
-            }
-        });
-
-        // Animate metrics on scroll
-        function animateMetrics() {
-            const metrics = document.querySelectorAll('.metric-value');
-            metrics.forEach(metric => {
-                const finalValue = metric.textContent;
-                const numericValue = parseFloat(finalValue.replace(/[^\d.]/g, ''));
-                if (numericValue) {
-                    let currentValue = 0;
-                    const increment = numericValue / 50;
-                    const timer = setInterval(() => {
-                        currentValue += increment;
-                        if (currentValue >= numericValue) {
-                            metric.textContent = finalValue;
-                            clearInterval(timer);
-                        } else {
-                            if (finalValue.includes('$')) {
-                                metric.textContent = '$' + Math.floor(currentValue) + finalValue.substring(finalValue.indexOf('M'));
-                            } else if (finalValue.includes('%')) {
-                                metric.textContent = Math.floor(currentValue) + '%';
-                            } else if (finalValue.includes('.')) {
-                                metric.textContent = currentValue.toFixed(1);
-                            } else {
-                                metric.textContent = Math.floor(currentValue) + finalValue.replace(/\d/g, '');
+        // Initialize Charts
+        function initializeCharts() {
+            // Inflation Forecasting Accuracy Chart
+            const forecastCtx = document.getElementById('forecast-chart').getContext('2d');
+            new Chart(forecastCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Predicted Inflation',
+                        data: [3.2, 3.1, 2.9, 2.8, 2.7, 2.6, 2.8, 2.9, 3.0, 3.1, 2.8, 2.7],
+                        borderColor: '#000000',
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                        borderWidth: 3,
+                        fill: false,
+                        tension: 0.4
+                    }, {
+                        label: 'Actual Inflation',
+                        data: [3.1, 3.2, 2.8, 2.9, 2.6, 2.7, 2.9, 2.8, 3.1, 3.0, 2.9, 2.8],
+                        borderColor: '#757575',
+                        backgroundColor: 'rgba(117, 117, 117, 0.1)',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#E0E0E0'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: '#E0E0E0'
                             }
                         }
-                    }, 40);
+                    }
+                }
+            });
+
+            // Portfolio Performance Chart
+            const performanceCtx = document.getElementById('performance-chart').getContext('2d');
+            new Chart(performanceCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023', 'Q1 2024', 'Q2 2024'],
+                    datasets: [{
+                        label: 'Inflation-Hedge Portfolio',
+                        data: [15.2, 18.7, 21.3, 24.1, 26.8, 29.2],
+                        borderColor: '#000000',
+                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }, {
+                        label: 'Traditional 60/40',
+                        data: [8.4, 9.1, 7.8, 10.2, 11.5, 12.3],
+                        borderColor: '#BDBDBD',
+                        backgroundColor: 'rgba(189, 189, 189, 0.1)',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#E0E0E0'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: '#E0E0E0'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Economic Regime Chart
+            const regimeCtx = document.getElementById('regime-chart').getContext('2d');
+            new Chart(regimeCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Growth Phase', 'Recession Risk', 'Inflation Risk', 'Stable'],
+                    datasets: [{
+                        data: [45, 15, 25, 15],
+                        backgroundColor: ['#000000', '#FF3B30', '#FF9500', '#34C759'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Asset Allocation Chart
+            const allocationCtx = document.getElementById('allocation-chart').getContext('2d');
+            new Chart(allocationCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['TIPS', 'Commodities', 'Real Estate', 'Equities', 'Alternatives'],
+                    datasets: [{
+                        label: 'High Inflation',
+                        data: [35, 30, 15, 15, 5],
+                        backgroundColor: '#000000',
+                        borderRadius: 8
+                    }, {
+                        label: 'Low Inflation',
+                        data: [20, 15, 20, 35, 10],
+                        backgroundColor: '#757575',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#E0E0E0'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
                 }
             });
         }
 
-        // Start animations when page loads
+        // Modal Functions
+        function showEconomicDetail(id) {
+            const modal = document.getElementById('economic-modal');
+            const title = document.getElementById('modal-title');
+            const body = document.getElementById('modal-body');
+
+            const data = {
+                'us': {
+                    title: 'United States - Economic Analysis',
+                    content: `
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                            <div style="background: #FAFAFA; padding: 1rem; border-radius: 8px;">
+                                <strong>Inflation Metrics</strong><br>
+                                Current CPI: 3.2%<br>
+                                Core CPI: 3.8%<br>
+                                12M Forecast: 2.8%<br>
+                                Confidence: 94%
+                            </div>
+                            <div style="background: #FAFAFA; padding: 1rem; border-radius: 8px;">
+                                <strong>Portfolio Allocation</strong><br>
+                                TIPS: 35%<br>
+                                Commodities: 25%<br>
+                                Equities: 40%<br>
+                                Expected Return: 18.5%
+                            </div>
+                        </div>
+                        <p><strong>Economic Environment:</strong> The US economy is in a late-cycle expansion with moderating inflation pressures. Fed policy is shifting toward neutral, creating opportunities for duration risk in TIPS while maintaining commodity exposure for residual inflation protection.</p>
+                        <p><strong>Key Risks:</strong> Supply chain disruptions, wage-price spiral potential, and geopolitical tensions. Monitoring PCE deflator trends and labor market dynamics for portfolio adjustments.</p>
+                    `
+                },
+                'eu': {
+                    title: 'European Union - Economic Analysis',
+                    content: `
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                            <div style="background: #FAFAFA; padding: 1rem; border-radius: 8px;">
+                                <strong>Inflation Dynamics</strong><br>
+                                Current HICP: 2.4%<br>
+                                Core HICP: 2.7%<br>
+                                12M Forecast: 2.1%<br>
+                                Confidence: 89%
+                            </div>
+                            <div style="background: #FAFAFA; padding: 1rem; border-radius: 8px;">
+                                <strong>Optimal Allocation</strong><br>
+                                Bonds: 40%<br>
+                                Real Estate: 30%<br>
+                                Equities: 30%<br>
+                                Expected Return: 16.2%
+                            </div>
+                        </div>
+                        <p><strong>Regional Analysis:</strong> ECB policy normalization continues with moderate pace. Energy price volatility remains key driver, but structural disinflation trends are emerging. German Bund yields provide attractive real returns.</p>
+                        <p><strong>Investment Thesis:</strong> Focus on European real estate and dividend-paying equities while maintaining sovereign bond exposure. Energy transition investments offer inflation protection with ESG alignment.</p>
+                    `
+                }
+            };
+
+            const item = data[id] || {
+                title: 'Economic Analysis',
+                content: '<p>Detailed macroeconomic analysis and portfolio recommendations for this economy.</p>'
+            };
+
+            title.textContent = item.title;
+            body.innerHTML = item.content;
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('economic-modal').style.display = 'none';
+        }
+
+        function generateForecast() {
+            const economy = document.getElementById('economy-select').value;
+            const asset = document.getElementById('asset-select').value;
+            const horizon = document.getElementById('horizon-select').value;
+            
+            alert(`Generating forecast for:\nEconomy: ${economy}\nAsset Class: ${asset}\nTime Horizon: ${horizon}\n\nForecast will be available in dashboard within 3-5 minutes.`);
+        }
+
+        // Initialize on page load
         window.addEventListener('load', () => {
-            setTimeout(animateMetrics, 500);
+            setTimeout(initializeCharts, 500);
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('economic-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
         });
     </script>
 </body>
